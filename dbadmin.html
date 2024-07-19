@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/dbadminstyless12345679.css">
+  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+ 
+  
+  <style>
+   body {
+    background-color: whitesmoke;
+    font-family: 'Kumbh Sans', sans-serif;
+    }
+    .navbar-nav .nav-link {
+      color: white !important;
+    }
+    
+    .content {
+      padding: 20px;
+      background-color: transparent; 
+    }
+    
+    .btn-primary {
+    color: #fff;
+    background-color: #1c1c1e;
+    border-color: #1c1c1e;
+    } 
+    
+    .logo {
+      width: 50px;
+      height: auto;
+    }
+    
+    .container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Adds space between .box and .charts-container */
+}
+
+.box {
+    background-color: #1c1c1e;
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+    flex: 1 1 calc(50% - 20px); /* Each box takes up about half the container width, minus the gap */
+    box-sizing: border-box; /* Ensures padding is included in total width */
+    margin-bottom: 20px; /* Optional: Adds space below each box */
+}
+
+    .charts-container {
+    display: flex;
+    justify-content: space-between; /* Ensures space between chart-box elements */
+   
+    }
+
+    .chart-box {
+        flex: 1; /* Each chart-box will take up equal space */
+        max-width: calc(50% - 10px); /* Each chart-box will take up about half the container width, minus half of the gap */
+        box-sizing: border-box; /* Ensures padding is included in total width */
+    }
+
+    .chart {
+        background-color: #1c1c1e;
+        color: white;
+        padding: 20px;
+        border-radius: 5px;
+        width: 100%; /* Ensures charts fill the chart-box width */
+        box-sizing: border-box; /* Ensures padding is included in total width */
+        height: auto; 
+    }
+
+   
+    @media (max-width: 768px) {
+    .charts-container {
+        display: flex;
+        flex-direction: column; /* Stacks charts vertically on smaller screens */
+    }
+
+    .chart-box {
+        flex: 1 1 100%; /* Each chart-box takes full width on smaller screens */
+        margin-bottom: 20px; /* Adds space between chart-box elements when stacked */
+    }
+
+    .chart {
+        background-color: #1c1c1e;
+        color: white;
+        padding: 20px;
+        border-radius: 5px;
+        width: auto; /* Ensures charts fill the chart-box width */
+        box-sizing: border-box; /* Ensures padding is included in total width */
+    }
+}
+
+
+
+    
+    .title {
+      font-size: 1.5rem;
+      text-align: center;
+    }
+    
+
+    
+
+    
+    .notification-icon {
+      position: fixed;
+      top: 90px; /* Adjusted to be below navbar */
+      right: 30px; /* Adjusted to top right */
+      cursor: pointer;
+      width: 40px; /* Set a fixed width */
+      height: 40px; /* Set a fixed height */
+    }
+    
+    .notifications-container {
+      position: fixed;
+      top: 120px; /* Adjusted to be below navbar */
+      right: 20px; /* Adjusted to top right */
+      width: 300px;
+      max-height: 400px;
+      overflow-y: auto;
+      background-color: #333;
+      color: white;
+      border-radius: 5px;
+      display: none;
+      padding: 20px;
+      z-index: 1;
+    }
+    
+    .notification {
+      margin-bottom: 10px;
+    }
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar-brand svg {
+      margin-right: 5px; /* Adjust space between icon and text */
+      width: 1.25em; /* Adjust width relative to text size */
+      height: 1.25em; /* Adjust height relative to text size */
+    }
+    .nav-link {
+        display: flex;
+        align-items: center;
+      }
+    .nav-link svg {
+        margin-right: 5px; /* Adjust space between icon and text */
+        width: 1em; /* Adjust the width to match text size */
+        height: 1em; /* Adjust the height to match text size */
+        vertical-align:-0.125em;
+      }
+      .container-main {
+            padding: 15px;
+            background-color: transparent;
+            border-radius: 10px;
+    
+            transition: transform 0
+
+
+        }
+        .box {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .chart {
+            margin-top: 20px;
+        }
+        .chart h2 {
+            font-size: 1.25rem;
+        }
+    @media (min-width: 768px) {
+      .chart-box {
+        flex: 1 1 48%; /* Adjusted for two-column layout on larger screens */
+        margin-right: 2%; /* Space between charts */
+      }
+    }
+    .print-button-container {
+      margin-right: auto;
+    }
+
+    @media print {
+    .notification-icon,
+    .print-button-container {
+      display: none !important; /* Ensure they are hidden when printing */
+    }
+  }
+
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <a class="navbar-brand" href="#">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lock" viewBox="0 0 16 16">
+      <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 5.996V14H3s-1 0-1-1 1-4 6-4q.845.002 1.544.107a4.5 4.5 0 0 0-.803.918A11 11 0 0 0 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664zM9 13a1 1 0 0 1 1-1v-1a2 2 0 1 1 4 0v1a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1zm3-3a1 1 0 0 0-1 1v1h2v-1a1 1 0 0 0-1-1"/>
+    </svg>
+    Admin
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="dbadmin.html">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-data" viewBox="0 0 16 16">
+            <path d="M4 11a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0zm6-4a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0zM7 9a1 1 0 0 1 2 0v3a1 1 0 1 1-2 0z"/>
+            <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1z"/>
+            <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0z"/>
+          </svg>Dashboard</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="laf.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-archive" viewBox="0 0 16 16">
+          <path d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5zm13-3H1v2h14zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
+        </svg>Lost And Found Items</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="claimedadmin.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-check" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0"/>
+          <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
+        </svg>Claimed Items</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="index.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
+          <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+        </svg>Log Out</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
+  <div class="container-fluid container-main">
+    <div class="notification-icon" id="notificationIcon">
+      <img src="images/notificon.png" alt="Notification Icon" width="40" height="40">
+    </div>
+    
+    <div class="notifications-container" id="notificationsContainer">
+      <h2>Contact Us Notifications</h2>
+      <div id="notifications"></div>
+    </div>
+    
+    
+    <div class="content" id="invoice">
+      <div class="print-button-container">
+        <button onclick="window.print()" class="btn btn-primary print-button">Print</button>
+      </div>
+    <div class="row">
+        <div class="col-md-6 col-12">
+            <div class="wrapper">
+                <div class="box">
+                    <p class="title"><b>Total Lost Items: <span id="total-lost">0</span></b></p>
+                </div>
+                <div class="chart">
+                    <h2>Weekly Lost Items</h2>
+                    <canvas id="lostItemsChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-12">
+            <div class="wrapper">
+                <div class="box">
+                    <p class="title"><b>Total Claimed Items: <span id="total-claimed">0</span></b></p>
+                </div>
+                <div class="chart">
+                    <h2>Weekly Claimed Items</h2>
+                    <canvas id="claimedItemsChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script type="module">
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+  import { getDatabase, ref, onValue } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js';
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDqaFeFgdypMXb8IiOGCoroURcPH0aDk8A",
+      authDomain: "seeksmart-database.firebaseapp.com",
+      databaseURL: "https://seeksmart-database-default-rtdb.firebaseio.com",
+      projectId: "seeksmart-database",
+      storageBucket: "seeksmart-database.appspot.com",
+      messagingSenderId: "1066553932800",
+      appId: "1:1066553932800:web:1c0d9604286191bd5f6ce5"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  function updateCounts() {
+    const lostItemsRef = ref(db, 'lostItemForm');
+    const claimedItemsRef = ref(db, 'claimedItems');
+
+    onValue(lostItemsRef, (snapshot) => {
+      const lostCount = snapshot.exists() ? snapshot.size || snapshot.numChildren() : 0;
+      document.getElementById('total-lost').textContent = lostCount;
+    });
+
+    onValue(claimedItemsRef, (snapshot) => {
+      const claimedCount = snapshot.exists() ? snapshot.size || snapshot.numChildren() : 0;
+      document.getElementById('total-claimed').textContent = claimedCount;
+    });
+  }
+
+  function updateNotifications() {
+    const contactFormRef = ref(db, 'contactForm');
+    const notificationsContainer = document.getElementById('notifications');
+
+    onValue(contactFormRef, (snapshot) => {
+        notificationsContainer.innerHTML = '';
+
+        let notifications = [];
+        snapshot.forEach((childSnapshot) => {
+            notifications.push(childSnapshot.val());
+        });
+
+        // Sort notifications by timestamp in descending order
+        notifications.sort((a, b) => b.timestamp - a.timestamp);
+
+        // Prepend sorted notifications to the container
+        notifications.forEach((notification) => {
+            const notificationElement = document.createElement('div');
+            notificationElement.className = 'notification';
+            notificationElement.textContent = `Message from ${notification.firstName} ${notification.lastName}: ${notification.helpMsg}`;
+            notificationsContainer.insertBefore(notificationElement, notificationsContainer.firstChild);
+        });
+    });
+}
+
+function toggleNotifications() {
+    const notificationsContainer = document.getElementById('notificationsContainer');
+    if (window.getComputedStyle(notificationsContainer).display === 'none') {
+        notificationsContainer.style.display = 'block';
+    } else {
+        notificationsContainer.style.display = 'none';
+    }
+}
+
+function saveContactInfoToFirebase(fname, lname, email, message) {
+    let newContactInfo = push(saveContactInfo);
+
+    set(newContactInfo, {
+        fname: fname,
+        lname: lname,
+        email: email,
+        message: message,
+        timestamp: Date.now()
+    });
+}
+
+  document.getElementById('notificationIcon').addEventListener('click', toggleNotifications);
+
+  function getWeekDates(d) {
+  d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+  d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  const weekNo = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+
+  // Get the start date of the week
+  const weekStart = new Date(d);
+  weekStart.setUTCDate(d.getUTCDate() - d.getUTCDay() + 1);
+
+  // Get the end date of the week
+  const weekEnd = new Date(d);
+  weekEnd.setUTCDate(d.getUTCDate() - d.getUTCDay() + 7);
+
+  return [d.getUTCFullYear(), weekNo, weekStart, weekEnd];
+}
+
+function formatWeekLabel(weekStart, weekEnd) {
+  const options = { month: 'short', day: 'numeric' };
+  const startLabel = weekStart.toLocaleDateString(undefined, options);
+  const endLabel = weekEnd.toLocaleDateString(undefined, options);
+  return `${startLabel} - ${endLabel}`;
+}
+
+function updateCharts() {
+  const lostItemsRef = ref(db, 'lostItemForm');
+  const claimedItemsRef = ref(db, 'claimedItems');
+
+  const lostItemsData = [];
+  const claimedItemsData = [];
+
+  onValue(lostItemsRef, (snapshot) => {
+    snapshot.forEach((childSnapshot) => {
+      const item = childSnapshot.val();
+      const date = new Date(item.foundDate);
+      const [year, week, weekStart, weekEnd] = getWeekDates(date);
+      const weekLabel = formatWeekLabel(weekStart, weekEnd);
+      const weekStartTime = weekStart.getTime();
+
+      if (!lostItemsData[weekStartTime]) {
+        lostItemsData[weekStartTime] = { label: weekLabel, count: 0 };
+      }
+      lostItemsData[weekStartTime].count++;
+    });
+
+    const sortedLostItemsData = Object.keys(lostItemsData).sort((a, b) => a - b).map(key => lostItemsData[key]);
+    const labels = sortedLostItemsData.map(item => item.label);
+    const data = sortedLostItemsData.map(item => item.count);
+
+    new Chart(document.getElementById('lostItemsChart'), {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Lost Items',
+          data: data,
+          backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          borderColor: 'rgba(255, 99, 132, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  });
+
+  onValue(claimedItemsRef, (snapshot) => {
+    snapshot.forEach((childSnapshot) => {
+      const item = childSnapshot.val();
+      const date = new Date(item.claimedDate);
+      const [year, week, weekStart, weekEnd] = getWeekDates(date);
+      const weekLabel = formatWeekLabel(weekStart, weekEnd);
+      const weekStartTime = weekStart.getTime();
+
+      if (!claimedItemsData[weekStartTime]) {
+        claimedItemsData[weekStartTime] = { label: weekLabel, count: 0 };
+      }
+      claimedItemsData[weekStartTime].count++;
+    });
+
+    const sortedClaimedItemsData = Object.keys(claimedItemsData).sort((a, b) => a - b).map(key => claimedItemsData[key]);
+    const labels = sortedClaimedItemsData.map(item => item.label);
+    const data = sortedClaimedItemsData.map(item => item.count);
+
+    new Chart(document.getElementById('claimedItemsChart'), {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Claimed Items',
+          data: data,
+          backgroundColor: 'rgba(54, 162, 235, 0.2)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  });
+}
+
+window.addEventListener('load', () => {
+  updateCounts();
+  updateNotifications();
+  updateCharts();
+});
+
+
+
+
+ 
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Home</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <style>
+    body {
+      background: url('images/bg.png') no-repeat center center fixed;
+      background-size: cover;
+    }
+    .navbar {
+      background: #020079;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+     }
+    .navbar-brand {
+      margin-right: auto;
+     }
+    .navbar-toggler {
+      margin-left: auto;
+     }
+    .navbar-collapse .navbar-nav .nav-link {
+      color: #fff !important;
+      font-size: 1.2em; /* Increase font size */
+      transition: color 0.3s;
+     }
+    .navbar-collapse .navbar-nav .nav-link:hover {
+      color: #000 !important;
+     }
+    .navbar-collapse {
+      background-color: #020079; /* Set background color for the navbar collapse */
+    }
+
+    .main__container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr); 
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      height: 80vh;
+      z-index: 1;
+      width: 100%;
+      max-width: 1500px;
+      padding-right: 50px;
+      padding-left: 50px;
+      padding-top: 50px;
+    }
+
+    .main__img--container {
+      margin-right: 5%;
+    }
+
+    #main__img {
+      display: flex;
+      max-width: 100%;
+      height: auto;
+      margin-right: 35rem;
+    }
+
+    .vertical-line {
+      width: 3px;
+      height: 80%;
+      background-color: #000000;
+      margin-right: 10px;
+      flex-shrink: 0;
+    }
+
+    .main__content {
+      grid-column: span 2;
+      margin-left: -200px;
+    }
+
+    .main__content p {
+      font-size: 1.5rem;
+      color: #ffffff;
+      max-width: 100%;
+      overflow-wrap: break-word;
+    }
+
+    .login-button {
+      position: relative;
+      background-color: rgb(255, 255, 255);
+      border-radius: 5px;
+      background-repeat: no-repeat;
+      cursor: pointer;
+      box-sizing: border-box;
+      width: 154px;
+      height: 49px;
+      color: #020079;
+      border: 2px solid #000000;
+      font-size: 20px;
+      transition: all 0.3s ease-in-out;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    button::before {
+      content: "";
+      background-color: #f7f302;
+      width: 0;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      transition: width 700ms ease-in-out;
+      display: inline-block;
+    }
+
+    .navbar-collapse {
+        background-color: #020079 !important; /* Adjust background color for mobile view */
+    }
+            
+    
+    /* Center modal vertically */
+    .modal-dialog {
+      min-height: calc(100vh - 1rem); /* Adjust according to your modal content */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal form input[type="email"] {
+      text-align: center; 
+      color: #000000;
+      font-size: 18px;
+      font-weight: bold; 
+    }
+    .modal form input[type="email"]::placeholder {
+      text-align: center; 
+      color: #000000;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .modal form input[type="text"],
+    .modal form input[type="password"] {
+      text-align: center; 
+      color: #000000;
+      font-size: 18px;
+      font-weight: bold; 
+     }
+    .modal form input[type="text"]::placeholder,
+    .modal form input[type="password"]::placeholder {
+      text-align: center; 
+      color: #000000;
+      font-size: 18px;
+      font-weight: bold;
+      }
+    .modal-content {
+      background-color: rgba(255, 255, 255, 0.7); 
+      padding: 20px;
+      border: 2px solid #020079;
+      border-radius: 20px;
+      box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.2);
+      animation: animatetop 0.4s;
+      }
+
+     .btn-primary {
+      color: #fff;
+      background-color: #020079;
+      border-color: #020079;
+      border-radius: 5px;
+      border: 2px solid #000000;
+      }
+      .nav-link {
+        display: flex;
+        align-items: center;
+      }
+
+      .nav-link svg {
+        margin-right: 5px; /* Adjust space between icon and text */
+        width: 1em; /* Adjust the width to match text size */
+        height: 1em; /* Adjust the height to match text size */
+      }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <img src="images/hccslogo.png" alt="Seeksmart" width="200" height="100" class="d-inline-block align-top">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+              <a class="nav-link" href="index.html">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
+                  <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"/>
+                </svg>
+                Home
+              </a>              
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+  <!-- Main Content -->
+  <div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <img id="main__img" src="images/sslogo.png" alt="Main Image" class="img-fluid">
+        </div>
+        <div class="col-md-6 text-center text-md-left d-flex flex-column align-items-center align-items-md-start">
+            <h2>Welcome, Admin!</h2>
+            <p>Please Log-In</p>
+            <button class="btn btn-primary login-button" data-toggle="modal" data-target="#loginModal">Login</button>
+        </div>
+    </div>
+</div>
+
+
+  <!-- Bootstrap Modal -->
+  <div id="loginModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        
+        <div class="modal-body">
+          <img id="loginimage" src="images/loginlogo.png" class="img-fluid mx-auto d-block" alt="Login Logo">
+          <form id="loginForm">
+            <div class="form-group">
+              <input type="text" class="form-control" id="email" name="email" placeholder="Email" autocomplete = "off">
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control" id="password" name="password" placeholder="Password" autocomplete = "off">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Login</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap and Firebase Scripts -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+  
+  <!-- Firebase scripts -->
+  <script type="module">
+    // Import functions 
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getDatabase, ref, set, get, child, update } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    // Web app Firebase config
+    const firebaseConfig = {
+        apiKey: "AIzaSyDqaFeFgdypMXb8IiOGCoroURcPH0aDk8A",
+        authDomain: "seeksmart-database.firebaseapp.com",
+        databaseURL: "https://seeksmart-database-default-rtdb.firebaseio.com",
+        projectId: "seeksmart-database",
+        storageBucket: "seeksmart-database.appspot.com",
+        messagingSenderId: "1066553932800",
+        appId: "1:1066553932800:web:1c0d9604286191bd5f6ce5"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth();
+
+    // Login form submission
+    document.getElementById('loginForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const loginDate = new Date().toLocaleString();
+
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          if (user) {
+            const userRef = ref(database, 'adminUsers/' + user.uid);
+            get(userRef).then((snapshot) => {
+              if (!snapshot.exists()) {
+                // New user, add to database
+                set(userRef, {
+                  email: user.email,
+                  role: "admin", // Default role, change as needed
+                  lastLogin: loginDate
+                }).then(() => {
+                  alert('New user added to the database. Login again.');
+                  auth.signOut();
+                }).catch((error) => {
+                  console.error('Error adding new user:', error);
+                });
+              } else {
+                // Existing user, update login date and check role
+                const userData = snapshot.val();
+                update(userRef, { lastLogin: loginDate }).then(() => {
+                  if (userData.role === "admin") {
+                    alert('Admin logged in!');
+                    window.location.href = "dbadmin.html";
+                  } else {
+                    alert('Access denied. Admins only.');
+                    auth.signOut();
+                  }
+                }).catch((error) => {
+                  console.error('Error updating login date:', error);
+                });
+              }
+            }).catch((error) => {
+              console.error('Error fetching user data:', error);
+            });
+          } else {
+            alert('Authentication failed');
+          }
+        })
+        .catch((error) => {
+          const errorMessage = error.message;
+          alert(errorMessage);
+        });
+    });
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const uid = user.uid;
+        // Perform actions based on user state
+      } else {
+        // User is signed out
+        // Perform actions based on user state
+      }
+    });
+  </script>
+
+<script>
+    // Get the modal
+    var modal = document.getElementById("loginModal");
+
+    // Get the button that opens the modal
+    var btn = document.querySelector(".login-button");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal 
+    btn.onclick = function() {
+      modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+
+    // Add event listener to hide second logo when email input is clicked
+    document.getElementById("email").addEventListener("focus", function() {
+      document.querySelector(".username-logo").style.display = "none";
+    });
+
+    // Add event listener to show second logo when email input loses focus
+    document.getElementById("email").addEventListener("blur", function() {
+      if (this.value === "") {
+        document.querySelector(".username-logo").style.display = "block";
+      }
+    });
+
+    // Add event listener to hide second logo when password input is clicked
+    document.getElementById("password").addEventListener("focus", function() {
+      document.querySelector(".password-logo").style.display = "none";
+    });
+
+    // Add event listener to show second logo when password input loses focus
+    document.getElementById("password").addEventListener("blur", function() {
+      if (this.value === "") {
+        document.querySelector(".password-logo").style.display = "block";
+      }
+    });
+
+    // Add event listener to the login form for submit event
+    document.querySelector("#loginModal form").addEventListener("submit", function(event) {
+      event.preventDefault(); // Prevent the default form submission
+    });
+  </script>
+
+</body>
+</html>

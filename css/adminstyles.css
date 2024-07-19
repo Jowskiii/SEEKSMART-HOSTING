@@ -1,0 +1,124 @@
+/* adminstyles.css */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Kumbh Sans', sans-serif;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.navbar {
+  background: #020079;
+  height: 100px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 1.2rem;
+  top: 0;
+  z-index: 999;
+}
+
+.navbar-brand {
+  padding-left: 15px;
+}
+
+.main__container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); 
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  height: 80vh;
+  z-index: 1;
+  width: 100%;
+  max-width: 1500px;
+  padding-right: 50px;
+  padding-left: 50px;
+  padding-top: 50px;
+}
+
+.main__img--container {
+  margin-right: 5%;
+}
+
+#main__img {
+  display: flex;
+  max-width: 100%;
+  height: auto;
+  margin-right: 35rem;
+}
+
+.vertical-line {
+  width: 3px;
+  height: 80%;
+  background-color: #000000;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+.main__content {
+  grid-column: span 2;
+  margin-left: -200px;
+}
+
+.main__content p {
+  font-size: 1.5rem;
+  color: #ffffff;
+  max-width: 100%;
+  overflow-wrap: break-word;
+}
+
+.login-button {
+  position: relative;
+  background-color: rgb(255, 255, 255);
+  border-radius: 5px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  box-sizing: border-box;
+  width: 154px;
+  height: 49px;
+  color: #020079;
+  border: 2px solid #000000;
+  font-size: 20px;
+  transition: all 0.3s ease-in-out;
+  z-index: 1;
+  overflow: hidden;
+}
+
+button::before {
+  content: "";
+  background-color: #f7f302;
+  width: 0;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  transition: width 700ms ease-in-out;
+  display: inline-block;
+}
+
+button:hover::before {
+  width: 100%;
+}
+
+/* Remove custom styles for the modal */
+.modal {
+  display: center; /* Ensure modal displays correctly */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+}
+.nav-link {
+  display: flex;
+  align-items: center;
+}
+
+.nav-link svg {
+  margin-right: 5px; /* Adjust space between icon and text */
+  width: 1.2em; /* Adjust the width to match text size */
+  height: 1.2em; /* Adjust the height to match text size */
+}
