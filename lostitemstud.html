@@ -610,16 +610,14 @@
       </div>
       <div class="item-footer">
         <button class="view-btn" data-item-id="${item.itemId}">View</button>
-        <button class="claim-btn" data-item-id="${item.itemId}">Claim</button>        
+              
       </div>
     `;
     container.querySelector('.view-btn').addEventListener('click', () => {
         console.log('Button clicked'); 
         showModal(item);
     });
-    container.querySelector('.claim-btn').addEventListener('click', () => {
-        showClaimModal(item);
-    });
+   
     itemsContainer.appendChild(container);
 }
 
