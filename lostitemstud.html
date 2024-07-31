@@ -249,6 +249,16 @@
       height: 2in;
       border-radius: 0.04in;
     }
+    #snap {
+      display: block;
+      margin: 0 auto;
+      background-color: #1c1c1e;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 16px;
+    }
     .option-buttons button {
       background-color: #1c1c1e;
       color: white;
@@ -416,8 +426,7 @@
             <h2>Upload Image</h2>
           </div>
           <div id="upload-container">
-           
-            <a href="https://smartphone.edgeimpulse.com/classifier.html?apiKey=ei_31ec11cdac3a1e7416072984b425716d780efd3eb9478b7b5b6a82f9f7a1a239" id="scan-item" class="btn btn-primary">Scan Item</a>
+            <button id="scan-item" class="btn btn-primary">Scan Item</button>
           </div>
         </div>
         <div id="capture-container" style="display:none;">
@@ -477,8 +486,6 @@
       const app = initializeApp(firebaseConfig);
       const db = getDatabase(app);
       const auth = getAuth();
-
-     
 
       var itemsContainer = document.getElementById("itemsContainer");
       var items = []; // Array to store retrieved items
@@ -845,6 +852,11 @@
         };
         
       })();
+    </script>
+    <script>
+      document.getElementById('scan-item').onclick = function() {
+        window.open('https://smartphone.edgeimpulse.com/classifier.html?apiKey=ei_31ec11cdac3a1e7416072984b425716d780efd3eb9478b7b5b6a82f9f7a1a239', '_blank');
+      };
     </script>
 </body>
 </html>
